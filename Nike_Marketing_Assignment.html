@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nike Marketing Analysis</title><br>
+<title>By Maralbyek Tilyek</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nike-black: #111111;
+    --nike-white: #FFFFFF;
+    --nike-orange: #FF6600;
+    --nike-red: #E31E24;
+    --nike-gray: #888888;
+    --nike-lightgray: #F5F5F5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: var(--nike-white);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    padding: 40px 50px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slide.active {
+    display: flex;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 100;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    opacity: 0.25;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav:hover {
+    opacity: 1;
+  }
+
+  .nav button {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+
+  .nav button:hover { background: var(--nike-orange); border-color: var(--nike-orange); }
+
+  .slide-counter {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    min-width: 50px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* =================== SLIDE 1 - COVER =================== */
+  .slide-1 {
+    background: var(--nike-black);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .slide-1 .bg-swoosh {
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 650px;
+    height: 650px;
+    opacity: 0.06;
+    font-size: 600px;
+    line-height: 1;
+    font-family: 'Bebas Neue', cursive;
+    color: white;
+    user-select: none;
+  }
+
+  .slide-1 .orange-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    background: var(--nike-orange);
+  }
+
+  .slide-1 .content {
+    padding: 40px 60px;
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .slide-1 .label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--nike-orange);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .slide-1 .course-info {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .slide-1 .main-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 75px;
+    line-height: 0.9;
+    color: var(--nike-white);
+    letter-spacing: 2px;
+  }
+
+  .slide-1 .main-title span {
+    color: var(--nike-orange);
+  }
+
+  .slide-1 .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    max-width: 600px;
+    line-height: 1.5;
+    margin-top: 14px;
+  }
+
+  .slide-1 .news-box {
+    background: rgba(255,102,0,0.1);
+    border: 1px solid rgba(255,102,0,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    max-width: 700px;
+  }
+
+  .slide-1 .news-box .news-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--nike-orange);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .slide-1 .news-box p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+
+  .slide-1 .student-info {
+    display: flex;
+    gap: 28px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 16px;
+  }
+
+  .slide-1 .student-info .info-block .info-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .slide-1 .student-info .info-block .info-value {
+    font-size: 12px;
+    color: white;
+    font-weight: 500;
+  }
+
+  /* =================== SLIDE 2 - CHALLENGE =================== */
+  .slide-2 {
+    background: var(--nike-white);
+    color: var(--nike-black);
+  }
+
+  .slide-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 52px;
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .slide-title span { color: var(--nike-orange); }
+
+  .section-line {
+    width: 60px;
+    height: 4px;
+    background: var(--nike-orange);
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 18px 0;
+  }
+
+  .stat-card {
+    background: var(--nike-black);
+    color: white;
+    padding: 18px 16px;
+    border-radius: 10px;
+  }
+
+  .stat-card .stat-number {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 44px;
+    color: var(--nike-orange);
+    line-height: 1;
+  }
+
+  .stat-card .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .challenge-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--nike-orange);
+    color: white;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  /* =================== SLIDE 3 - MARKETING CONCEPTS =================== */
+  .slide-3 {
+    background: #111;
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 18px;
+    border-left: 4px solid var(--nike-orange);
+  }
+
+  .concept-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    color: var(--nike-orange);
+  }
+
+  .concept-card p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .concept-card .applied {
+    margin-top: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 7px;
+  }
+
+  /* =================== SLIDE 4 - 4Ps =================== */
+  .slide-4 {
+    background: var(--nike-white);
+    color: var(--nike-black);
+  }
+
+  .four-p-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+    margin-top: 18px;
+  }
+
+  .p-card {
+    border-radius: 12px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p-card.product { background: var(--nike-black); color: white; }
+  .p-card.price { background: var(--nike-orange); color: white; }
+  .p-card.place { background: #1a1a2e; color: white; }
+  .p-card.promotion { background: #e8f4e8; color: var(--nike-black); }
+
+  .p-card .p-letter {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 56px;
+    position: absolute;
+    right: 12px;
+    top: -8px;
+    opacity: 0.12;
+    line-height: 1;
+  }
+
+  .p-card .p-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .p-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .p-card ul li {
+    font-size: 11px;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+
+  .p-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+  }
+
+  /* =================== SLIDE 5 - JUSTIFICATION =================== */
+  .slide-5 {
+    background: #0d1117;
+  }
+
+  .justify-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .justify-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    border-top: 3px solid var(--nike-orange);
+  }
+
+  .justify-card .who {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--nike-orange);
+    margin-bottom: 10px;
+  }
+
+  .justify-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .justify-card ul li {
+    font-size: 11px;
+    padding: 3px 0;
+    color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    line-height: 1.4;
+  }
+
+  /* =================== SLIDE 6 - ETHICS =================== */
+  .slide-6 {
+    background: var(--nike-white);
+    color: var(--nike-black);
+  }
+
+  .ethics-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .ethics-card {
+    padding: 18px;
+    border-radius: 12px;
+    background: var(--nike-lightgray);
+    border-left: 5px solid var(--nike-orange);
+  }
+
+  .ethics-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--nike-black);
+  }
+
+  .ethics-card p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .sdg-badge {
+    display: inline-block;
+    background: #1a7c3e;
+    color: white;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* =================== SLIDE 7 - CONCLUSION =================== */
+  .slide-7 {
+    background: var(--nike-black);
+    overflow: hidden;
+  }
+
+  .slide-7 .big-text {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 90px;
+    line-height: 0.9;
+    opacity: 0.06;
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    letter-spacing: 4px;
+    user-select: none;
+  }
+
+  .conclusion-points {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+  }
+
+  .conclusion-point {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .conclusion-point .num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 26px;
+    color: var(--nike-orange);
+    line-height: 1;
+    min-width: 24px;
+  }
+
+  .conclusion-point p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    padding-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide slide-1 active">
+    <div class="orange-bar"></div>
+    <div class="bg-swoosh">✓</div>
+    <div class="content">
+      <div>
+        <div class="label">BBC1043 · Principles of Marketing · Assessment 2</div>
+        <div class="course-info">Lecturer: Emily Anak Rogos &nbsp;|&nbsp; Individual Marketing Issue Analysis &nbsp; | By Maralbyek Tilyek</div>
+      </div>
+
+      <div>
+        <div class="main-title">NIKE'S<br><span>MARKETING</span><br>CRISIS</div>
+        <p class="subtitle">How the world's most iconic sportswear brand lost its way — and what it must do to win again.</p>
+      </div>
+
+      <div>
+        <div class="news-box">
+          <div class="news-label"> Source Article</div>
+          <p><strong>"Nike Takes Aggressive Steps to Regain Market Lead as Sales Keep Declining"</strong><br>
+          The CFO &nbsp;|&nbsp; May 27, 2025 &nbsp;|&nbsp; Company: Nike, Inc.</p>
+        </div>
+      </div>
+
+      <div class="student-info">
+        <div class="info-block">
+          <div class="info-label">Student Name</div>
+          <div class="info-value">Maralbyek Tilyek</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Student ID</div>
+          <div class="info-value">AIU24102280</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Programme</div>
+          <div class="info-value">Computer Science</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Session</div>
+          <div class="info-value">Semester 2 · 2025/2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: MARKETING CHALLENGE -->
+  <div class="slide slide-2">
+    <div class="tag">The Problem</div>
+    <div class="slide-title">Nike's <span>Marketing</span> Challenge</div>
+    <div class="section-line"></div>
+
+    <p class="challenge-desc">
+      Nike — the world's number one sportswear brand — reported a <strong>9% drop in total revenue</strong> and a <strong>15% decline in digital sales</strong> in 2025. The company overfocused on direct-to-consumer digital channels and performance marketing while neglecting its wholesale partners, brand storytelling, and product innovation. Competitors like On Running, Hoka, and domestic Chinese brands began stealing market share.
+    </p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number">9%</div>
+        <div class="stat-label">Total Revenue Drop<br>Q3 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15%</div>
+        <div class="stat-label">Digital Sales<br>Decline</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">17%</div>
+        <div class="stat-label">Revenue Drop<br>in China Market</div>
+      </div>
+    </div>
+
+    <p class="challenge-desc" style="font-size:13.5px; color:#555;">
+       Root cause: Nike abandoned brand-building for short-term performance marketing and heavy discounting — damaging its premium brand image and losing consumer trust.
+    </p>
+  </div>
+
+  <!-- SLIDE 3: MARKETING CONCEPTS -->
+  <div class="slide slide-3">
+    <div class="tag">Theory</div>
+    <div class="slide-title" style="color:white;">Marketing <span>Concepts</span> Applied</div>
+    <div class="section-line"></div>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h3>1. Brand Equity (Keller, 1993)</h3>
+        <p>Brand equity is the commercial value that comes from consumer perception of a brand. A strong brand commands premium prices, loyalty, and market advantage. Nike's heavy discounting eroded its brand equity — consumers started seeing Nike as cheap rather than aspirational.</p>
+        <div class="applied">Applied: Nike must rebuild brand equity by eliminating discounts and investing in emotional brand campaigns.</div>
+      </div>
+
+      <div class="concept-card">
+        <h3>2. The 4Ps Marketing Mix (McCarthy, 1960)</h3>
+        <p>The marketing mix framework — Product, Price, Place, Promotion — gives marketers a structured approach to strategy. Nike's failure was a misalignment across all four Ps: outdated products, promotional pricing, neglected wholesale channels, and unclear promotional messaging.</p>
+        <div class="applied">Applied: A recalibrated 4Ps strategy can realign Nike with consumer expectations and business goals.</div>
+      </div>
+
+      <div class="concept-card">
+        <h3>3. Consumer Behavior Theory</h3>
+        <p>Consumers buy based on emotions, aspirations, and peer influence — not just price. Nike built its empire on inspiring consumers emotionally ("Just Do It"). When it shifted to data-driven performance ads, it lost the emotional connection that drove loyalty.</p>
+        <div class="applied">Applied: Nike must return to aspirational storytelling to reconnect emotionally with its audience.</div>
+      </div>
+
+      <div class="concept-card">
+        <h3>4. Competitive Positioning (Porter, 1985)</h3>
+        <p>Porter's competitive advantage theory: a brand must choose either cost leadership or differentiation. Nike is a differentiation brand — it wins on innovation, culture, and status. Discounting pushed it toward cost leadership, destroying its competitive position.</p>
+        <div class="applied">Applied: Nike must reassert its differentiation position through exclusive innovation and premium pricing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: 4Ps STRATEGY -->
+  <div class="slide slide-4">
+    <div class="tag">Strategy</div>
+    <div class="slide-title">The 4<span>Ps</span> Strategy</div>
+    <div class="section-line"></div>
+
+    <div class="four-p-grid">
+      <div class="p-card product">
+        <div class="p-letter">P</div>
+        <div class="p-title">Product</div>
+        <ul>
+          <li>Launch innovation-led product lines (e.g. Pegasus Premium, Air Max 2026)</li>
+          <li>Develop NikeSKIMS women's line to capture female market</li>
+          <li>Reduce SKU count — fewer, better products</li>
+          <li>Invest in sustainable materials (recycled Flyknit, bio-based soles)</li>
+        </ul>
+      </div>
+
+      <div class="p-card price">
+        <div class="p-letter">P</div>
+        <div class="p-title">Price</div>
+        <ul>
+          <li>Eliminate discount promotions to restore premium brand perception</li>
+          <li>Introduce tiered pricing: sport performance vs. lifestyle</li>
+          <li>Maintain full-price integrity across all channels</li>
+          <li>Use limited-edition drops to drive scarcity and desire</li>
+        </ul>
+      </div>
+
+      <div class="p-card place">
+        <div class="p-letter">P</div>
+        <div class="p-title">Place</div>
+        <ul>
+          <li>Rebuild wholesale partnerships (Foot Locker, JD Sports, regional retailers)</li>
+          <li>Expand Nike flagship stores in key growth cities globally</li>
+          <li>Optimize Nike App and website for seamless digital experience</li>
+          <li>Strengthen community retail in emerging markets (Southeast Asia)</li>
+        </ul>
+      </div>
+
+      <div class="p-card promotion">
+        <div class="p-letter">P</div>
+        <div class="p-title">Promotion</div>
+        <ul>
+          <li>Return to emotional storytelling — athlete-driven campaigns</li>
+          <li>Invest in women's sports (WNBA, Women's World Cup)</li>
+          <li>Community grassroots activations in high schools and universities</li>
+          <li>Partner with Gen Z cultural icons on co-creation campaigns</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: JUSTIFICATION -->
+  <div class="slide slide-5">
+    <div class="tag">Why It Works</div>
+    <div class="slide-title">Strategy <span>Justification</span></div>
+    <div class="section-line"></div>
+
+    <div class="justify-grid">
+      <div class="justify-card">
+        <div class="who">For Consumers</div>
+        <ul>
+          <li>Better quality products at justified prices</li>
+          <li>Emotionally inspiring campaigns they connect with</li>
+          <li>Wider availability through restored retail channels</li>
+          <li>Sustainable products align with consumer values</li>
+          <li>Authentic brand identity — not just a discount label</li>
+        </ul>
+      </div>
+
+      <div class="justify-card">
+        <div class="who">For Community</div>
+        <ul>
+          <li>Grassroots programs promote active lifestyles</li>
+          <li>Support for women's sports empowers female athletes</li>
+          <li>Sustainable products reduce environmental impact</li>
+          <li>Community retail creates local jobs</li>
+          <li>Youth activations in schools promote sport culture</li>
+        </ul>
+      </div>
+
+      <div class="justify-card">
+        <div class="who">For Organisation</div>
+        <ul>
+          <li>Full-price sales restore profit margins</li>
+          <li>Stronger brand equity drives long-term revenue</li>
+          <li>Wholesale partnerships re-open distribution channels</li>
+          <li>Product innovation defends against On Running & Hoka</li>
+          <li>Rebuilt investor confidence through clear strategy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: ETHICS & SUSTAINABILITY -->
+  <div class="slide slide-6">
+    <div class="tag">Ethics & Sustainability</div>
+    <div class="slide-title">Akhlaq, Amalan & <span>Sustainability</span></div>
+    <div class="section-line"></div>
+
+    <div class="ethics-row">
+      <div class="ethics-card">
+        <h3>Akhlaq — Ethical Business Conduct</h3>
+        <p>Nike's strategy must be grounded in ethical values. This means being honest with consumers about pricing — no fake discounts or artificial markups — and investing fairly in athlete partnerships without exploitation. Akhlaq (good character) demands that Nike treat its suppliers, workers, and wholesale partners with transparency and respect, especially as it rebuilds trust after years of prioritizing profits over relationships.</p>
+      </div>
+
+      <div class="ethics-card">
+        <div class="sdg-badge"> Zero Net Carbon Emission</div>
+        <h3>Amalan — Sustainable Action</h3>
+        <p>Nike's "Move to Zero" initiative commits to zero carbon and zero waste. The product strategy — using recycled Flyknit and bio-based materials — directly supports this goal. By integrating sustainability into its core product lineup (not just special editions), Nike can lead the sportswear industry toward environmentally responsible manufacturing. This is Amalan in action: consistent, meaningful practice toward a better world.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; padding:18px 24px; background:#f0f7ff; border-radius:10px; border-left:4px solid #1a7c3e;">
+      <p style="font-size:13.5px; color:#333; line-height:1.7;"><strong>Connection to Zero Net Carbon Emission:</strong> Every product redesigned with sustainable materials, every store powered by renewable energy, and every supply chain optimized for efficiency directly contributes to Nike's — and the planet's — carbon neutrality goals. This is not just good ethics. It is good marketing, as 73% of global consumers say they prefer sustainable brands.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: CONCLUSION -->
+  <div class="slide slide-7">
+    <div class="big-text">WIN NOW</div>
+    <div class="tag">Conclusion</div>
+    <div class="slide-title">The Path <span>Forward</span></div>
+    <div class="section-line"></div>
+
+    <div class="conclusion-points">
+      <div class="conclusion-point">
+        <div class="num">1</div>
+        <p>Nike's challenge is not permanent — it is a brand that got distracted by short-term metrics. The solution lies in returning to what made Nike great: <strong>bold products, powerful stories, and genuine community connection.</strong></p>
+      </div>
+      <div class="conclusion-point">
+        <div class="num">2</div>
+        <p>By applying the <strong>4Ps marketing mix</strong> and rebuilding <strong>brand equity</strong>, Nike can restore its premium positioning, rebuild wholesale relationships, and inspire the next generation of athletes.</p>
+      </div>
+      <div class="conclusion-point">
+        <div class="num">3</div>
+        <p>When grounded in <strong>ethical values (Akhlaq & Amalan)</strong> and aligned with <strong>Zero Net Carbon Emission</strong> goals, this strategy does not just grow Nike's business — it makes a meaningful contribution to consumers, community, and the planet.</p>
+      </div>
+      <div class="conclusion-point">
+        <div class="num">4</div>
+        <p>The "Win Now" strategy, done right, is not just a turnaround plan. <strong>It is a blueprint for what responsible, purpose-driven marketing looks like in 2025 and beyond.</strong></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="changeSlide(-1)">← Prev</button>
+  <span class="slide-counter" id="counter">1 / 7</span>
+  <button onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function changeSlide(dir) {
+    slides[current].classList.remove('active');
+    current = (current + dir + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+</script>
+
+</body>
+</html>
